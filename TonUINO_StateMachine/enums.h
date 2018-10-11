@@ -16,9 +16,10 @@ typedef enum ButtonState {
   LONGPRESSED = 3
 } state_b;
 
-typedef enum PlayMode {
-  SINGLE = 1,
-  FOLDER = 2,
-  AUDIOBOOK = 3,
-  PARTY = 4
-} mode_mp3;
+typedef enum PlaybackMode {
+  AUDIODRAMA = 1, //Hörspielmodus
+  FOLDER = 2, //Albummodus
+  PARTY = 3, //Partymodus
+  SINGLE = 4, // Einzelmodus
+  AUDIOBOOK = 5  
+} playback_mode;

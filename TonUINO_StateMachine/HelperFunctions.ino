@@ -1,12 +1,5 @@
 #include <JC_Button.h>
 
-#define buttonPause A0
-#define buttonUp A1
-#define buttonDown A2
-#define busyPin 4
-
-#define LONG_PRESS 1000
-
 Button pauseButton(buttonPause);
 Button upButton(buttonUp);
 Button downButton(buttonDown);
@@ -14,8 +7,7 @@ Button downButton(buttonDown);
 
 // Funktion zum einlesen der Button Zustände
 // Hier wird nur das drücken der Buttons ausgelesen.
-void SetButtonStates()
-{
+void SetButtonStates() {
   pauseButton.read();
   upButton.read();
   downButton.read();
@@ -46,4 +38,22 @@ void SetButtonStates()
     b3State = LONGPRESSED;
   else
     b3State = RELEASED;
+}
+
+void initSerial() {
+  Serial.begin(115200); // Es gibt ein paar Debug Ausgaben über die serielle Schnittstelle
+  Serial.println(F("TonUINO StateMachine Version 1.0"));
+  Serial.println(F("(c) Bastian Hepp & Florian Trück"));
+  Serial.println(F("based on TonUINO by Thorsten Voß"));
+}
+
+void initButtons() {
+
+  // Knöpfe mit PullUp
+  pinMode(buttonPause, INPUT_PULLUP);
+  pinMode(buttonUp, INPUT_PULLUP);
+  pinMode(buttonDown, INPUT_PULLUP);
+
+  // Busy Pin
+  pinMode(busyPin, INPUT);
 }
