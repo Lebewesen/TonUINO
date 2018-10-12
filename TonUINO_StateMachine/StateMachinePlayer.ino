@@ -1,44 +1,45 @@
 
 void StateMachinePlayer() {
-  
-  switch(playerState) {
-    
-    case PAUSE: //pause
-      if(b1State == PRESSED) {
-        //mp3.play();
-      } else if (b1State == LONGPRESSED) {
-        //mp3.stop();
 
+  switch (playerState) {
+    case PAUSE:
+      if (pauseButtonState == PRESSED) {
+        mp3.start();
+      } else if (pauseButtonState == LONGPRESSED) {
         // neue RFID Karte
         globalState = RFIDCARD;
       }
-    break;
+      break;
 
-    case PLAYING: // playing
+    case PLAYING:
       //mp3.loop();
-      
-      if(b1State == PRESSED) {
-        //mp3.pause();
-      } else if (b1State == LONGPRESSED) {
-        //Tracknummer ansagen
-      }
 
-      if(b2State == PRESSED) {
+      if (pauseButtonState == PRESSED)
+        mp3.pause();
+      else if (pauseButtonState == LONGPRESSED)
+        mp3.playAdvertisement(currentTrack);
+
+      if (upButtonState == PRESSED)
         playerState = NEXT_TRACK;
+      else if (upButtonState == LONGPRESSED) {
+        Serial.println(F("Volume Up"));
+        mp3.increaseVolume();
       }
 
-      if(b3State == PRESSED) {
+      if (downButtonState == PRESSED)
         playerState = PREVIOUS_TRACK;
+      else if (downButtonState == LONGPRESSED) {
+        Serial.println(F("Volume Down"));
+        mp3.decreaseVolume();
       }
-    break;
+      break;
 
     case NEXT_TRACK:
-      //mp3.next();
-      playerState = PLAYING;
-    break;
+      nextTrack(random(65536)); //TODO: wieso Random?
+      break;
 
     case PREVIOUS_TRACK:
-      playerState = PLAYING;
-    break;
-  }  
+      previousTrack();
+      break;
+  }
 }

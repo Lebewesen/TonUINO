@@ -2,13 +2,12 @@ void StateMachineGlobal() {
   
   switch(globalState) {
     
-    case 1:
+    case NORMAL:
       StateMachinePlayer();
     break;
 
-    case 2:
-      // RFID Handling
-      // RFID Playmode
+    case RFIDCARD:
+      CardHandling();
     break;
   }
 }
